@@ -16,7 +16,6 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"], // headers que envías
 }));
 
-// Para asegurar que OPTIONS preflight funciona
 app.options("*", cors());
 app.use((req, res, next) => {
   console.log(`Petición recibida: ${req.method} ${req.path}`);
@@ -28,9 +27,9 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api", authRoutes);
-app.use("/api", taskRoutes);
+/* app.use("/api", taskRoutes);
 app.use("/api", epicRoutes);
 app.use("/api", projectRoutes);
-app.use("/api", storyRoutes);
+app.use("/api", storyRoutes); */
 
 export default app;
