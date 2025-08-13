@@ -11,12 +11,13 @@ import cors from "cors";
 const app = express();
 // Configuración de CORS más robusta
 app.use(cors({
-  origin: ["https://front-end-task-pied.vercel.app"], // como array
+  origin: true, 
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
   exposedHeaders: ["set-cookie"]
 }));
+
 
 // Middleware para headers CORS manuales (backup)
 app.use((req, res, next) => {
