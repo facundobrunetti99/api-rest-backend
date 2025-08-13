@@ -16,7 +16,7 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"], // headers que envías
 }));
 
-app.options("*", cors());
+
 app.use((req, res, next) => {
   console.log(`Petición recibida: ${req.method} ${req.path}`);
   next();
