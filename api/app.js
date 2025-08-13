@@ -14,17 +14,15 @@ app.use(cors());
 import express from "express";
 import cors from "cors";
 
-// Permitir solo tu frontend
 app.use(cors({
   origin: "https://front-end-task-pied.vercel.app",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"], // headers que usas
-  credentials: true // si envías cookies o token en header
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true 
 }));
-
-// Middleware para parsear JSON
-app.use(express.json());
 app.options("*", cors());
+app.use(express.json());
+
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cookieParser());
