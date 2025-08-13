@@ -11,11 +11,20 @@ import cors from "cors";
 const app = express();
 app.use(cors());
 
-app.use((req, res, next) => {
-  console.log(`Petición recibida: ${req.method} ${req.path}`);
-  next();
-});
+import express from "express";
+import cors from "cors";
 
+// Permitir solo tu frontend
+app.use(cors({
+  origin: "https://front-end-task-pied.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"], // headers que usas
+  credentials: true // si envías cookies o token en header
+}));
+
+// Middleware para parsear JSON
+app.use(express.json());
+app.options("*", cors());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cookieParser());
