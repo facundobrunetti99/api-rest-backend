@@ -14,6 +14,7 @@ app.use(
     origin: "https://front-end-task-pied.vercel.app/",
     credentials: true,
     setTimeout :5000,
+     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
 app.use((req, res, next) => {
