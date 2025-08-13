@@ -9,14 +9,15 @@ import storyRoutes from "../routes/story.router.js";
 import cors from "cors";
 
 const app = express();
-app.use(
-  cors({
-    origin: "https://front-end-task-pied.vercel.app",
-    credentials: true,
-    setTimeout :5000,
-     methods: ["GET", "POST", "PUT", "DELETE","PATCH", "OPTIONS"],
-  })
-);
+app.use(cors({
+  origin: "https://front-end-task-pied.vercel.app", // sin la barra final
+  credentials: true, // permite cookies
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"], // headers que envías
+}));
+
+// Para asegurar que OPTIONS preflight funciona
+app.options("*", cors());
 app.use((req, res, next) => {
   console.log(`Petición recibida: ${req.method} ${req.path}`);
   next();
