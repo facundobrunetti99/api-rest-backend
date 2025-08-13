@@ -11,10 +11,10 @@ import cors from "cors";
 const app = express();
 app.use(
   cors({
-    origin: "https://front-end-task-pied.vercel.app/",
+    origin: "https://front-end-task-pied.vercel.app",
     credentials: true,
     setTimeout :5000,
-     methods: ["GET", "POST", "PUT", "DELETE"],
+     methods: ["GET", "POST", "PUT", "DELETE","PATCH", "OPTIONS"],
   })
 );
 app.use((req, res, next) => {
