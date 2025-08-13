@@ -9,14 +9,8 @@ import storyRoutes from "../routes/story.router.js";
 import cors from "cors";
 
 const app = express();
-app.use(
-  cors({
-    origin: "https://front-end-task-pied.vercel.app/",
-    credentials: true,
-    setTimeout :5000,
-     methods: ["GET", "POST", "PUT", "DELETE"],
-  })
-);
+app.use(cors());
+
 app.use((req, res, next) => {
   console.log(`Petición recibida: ${req.method} ${req.path}`);
   next();
