@@ -26,10 +26,10 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(cookieParser());
 
-/* app.use("/api", authRoutes); */
-/* app.use("/api", taskRoutes);
+app.use("/api", authRoutes);
+app.use("/api", taskRoutes);
 app.use("/api", epicRoutes);
 app.use("/api", projectRoutes);
-app.use("/api", storyRoutes); */
+app.use("/api", storyRoutes);
 
 export default app;
