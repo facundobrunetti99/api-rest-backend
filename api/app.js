@@ -9,13 +9,23 @@ import storyRoutes from "../routes/story.router.js";
 import cors from "cors";
 
 const app = express();
+// Configuración de CORS más robusta
 app.use(cors({
-  origin: "https://front-end-task-pied.vercel.app", // sin la barra final
-  credentials: true, // permite cookies
+  origin: ["https://front-end-task-pied.vercel.app"], // como array
+  credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"], // headers que envías
+  allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
+  exposedHeaders: ["set-cookie"]
 }));
 
+// Middleware para headers CORS manuales (backup)
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://front-end-task-pied.vercel.app');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Cookie');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  next();
+});
 
 app.use((req, res, next) => {
   console.log(`Petición recibida: ${req.method} ${req.path}`);
