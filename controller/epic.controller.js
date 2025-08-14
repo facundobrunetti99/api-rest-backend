@@ -57,6 +57,10 @@ export const updateEpic = async (req, res) => {
 
 export const deleteEpic = async (req, res) => {
   try {
+ 
+    const epicId = req.epic._id;
+    await Task.deleteMany({ epic: epicId });
+    await Story.deleteMany({ epic: epicId });
     await req.epic.deleteOne();
     res.json({ message: "Epica eliminada" });
   } catch (error) {
