@@ -1,4 +1,3 @@
-// controller/story.controller.js
 import Story from "../model/story.model.js";
 
 export const createStory = async (req, res) => {
@@ -21,7 +20,6 @@ export const createStory = async (req, res) => {
 
 export const getStories = async (req, res) => {
   try {
-    // AQUÍ ESTÁ EL CAMBIO: Agregamos populate para epic y project
     const stories = await Story.find({ epic: req.epic._id })
       .populate({
         path: 'epic',
@@ -37,7 +35,6 @@ export const getStories = async (req, res) => {
 
 export const getStory = async (req, res) => {
   try {
-    // También agregamos populate para getStory individual
     const story = await Story.findById(req.story._id)
       .populate({
         path: 'epic',
@@ -63,9 +60,17 @@ export const updateStory = async (req, res) => {
 
 export const deleteStory = async (req, res) => {
   try {
+    const storyId = req.story._id;
+    await Task.deleteMany({ story: storyId });
     await req.story.deleteOne();
-    res.json({ message: "Story eliminada" });
+
+    res.json({
+      message: "Story y todas sus tareas asociadas eliminadas correctamente",
+    });
   } catch (error) {
-    res.status(500).json({ message: "Error al eliminar la story", error: error.message });
+    res.status(500).json({
+      message: "Error al eliminar la story",
+      error: error.message,
+    });
   }
 };
