@@ -1,5 +1,6 @@
 import Epic from "../model/epic.model.js";
-
+import Story from "../model/story.model.js";
+import Task from "../model/task.model.js";
 export const createEpic = async (req, res) => {
   try {
     const { title, description, date } = req.body;
@@ -33,7 +34,6 @@ export const getEpics = async (req, res) => {
 };
 
 export const getEpic = (req, res) => {
-
   if (!req.epic) {
     return res
       .status(404)
@@ -57,12 +57,19 @@ export const updateEpic = async (req, res) => {
 
 export const deleteEpic = async (req, res) => {
   try {
- 
     const epicId = req.epic._id;
-    await Task.deleteMany({ epic: epicId });
-    await Story.deleteMany({ epic: epicId });
+
+    //obtener todas las stories de este epic
+    const stories = await Story.find({ epic: epicId });
+    const storyIds = stories.map((story) => story._id);
+    //eliminar todas las tasks de esas stories
+    const deletedTasks = await Task.deleteMany({ story: { $in: storyIds } });
+    //eliminar todas las stories de este epic
+    const deletedStories = await Story.deleteMany({ epic: epicId });
+    //eliminar el epic
     await req.epic.deleteOne();
-    res.json({ message: "Epica eliminada" });
+
+    res.json({ message: "Épica y todo su contenido eliminado correctamente" });
   } catch (error) {
     res
       .status(500)
