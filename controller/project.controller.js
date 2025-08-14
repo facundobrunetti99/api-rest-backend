@@ -50,6 +50,10 @@ export const updateProject = async (req, res) => {
 
 export const deleteProject = async (req, res) => {
   try {
+    const projectId = req.project._id;
+    await Task.deleteMany({ project: projectId });
+    await Story.deleteMany({ project: projectId });
+    await Epic.deleteMany({ project: projectId });
     await req.project.deleteOne();
     res.json({ message: "Proyecto eliminado" });
   } catch (error) {
@@ -58,3 +62,4 @@ export const deleteProject = async (req, res) => {
       .json({ message: "Error al eliminar el proyecto", error: error.message });
   }
 };
+
