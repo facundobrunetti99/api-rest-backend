@@ -52,7 +52,7 @@ export const deleteProject = async (req, res) => {
   try {
     const projectId = req.project._id;
 
-    // 1. Obtener todos los epics del proyecto
+    //obtener todos los epics del proyecto
     const epics = await Epic.find({ project: projectId });
     const epicIds = epics.map((epic) => epic._id);
     //obtener todas las stories de esos epics
